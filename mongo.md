@@ -23,6 +23,7 @@ start a Mongo shell | `mongo`
 <img width=400/> If you want to... <img width=400/> | <img width=1200 /> The command is... <img width=1000 /> 
 ----------------- | --------------
 create a new database | `use name-of-database`
+create a user | `db.createUser({ 'user': 'name-of-user', 'pwd': 'mypassword1234', 'roles' : ["readWrite", "dbAdmin"]})`
 create a new collection | `db.createCollection('name-of-collection')`
 create a record | `db.name-of-collection.insert({ 'exampleKey' : 'exampleValue' })`
 create multiple records | `db.name-of-collection.insert([{ 'exampleKey1' : 'exampleValue1' }, { 'exampleKey2' : 'exampleValue2' }])`

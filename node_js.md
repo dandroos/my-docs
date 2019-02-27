@@ -79,6 +79,12 @@
     - [How do I install body-parser?](#how-do-i-install-body-parser)
     - [How do I use body-parser?](#how-do-i-use-body-parser)
     - [What about mailing that form?](#what-about-mailing-that-form)
+  - [Using Mongo/Mongoose](#using-mongomongoose)
+    - [How do I get started?](#how-do-i-get-started)
+    - [What is Mongoose?](#what-is-mongoose)
+    - [How do I connect Mongoose to a Mongo database?](#how-do-i-connect-mongoose-to-a-mongo-database)
+    - [How do I create a blueprint (AKA schema) for a data model?](#how-do-i-create-a-blueprint-aka-schema-for-a-data-model)
+    - [How do I then set up that model for data to be passed to/from my database?](#how-do-i-then-set-up-that-model-for-data-to-be-passed-tofrom-my-database)
 
 ## Introduction
 ### What is it?
@@ -945,4 +951,39 @@ We can now use the data object in our HTML template.  For example, after a user 
 This can be achieved with the [Nodemailer](https://nodemailer.com/about/) package.  Instructions to follow....
 
 > Follow [this](https://www.youtube.com/watch?v=nF9g1825mwk) tutorial
+
+
+### Using Mongo/Mongoose
+
+#### How do I get started?
+Refer to my docs about Mongo to create a database and a user for that database.  After you've created these, you then need to install and import `mongoose`.
+
+    npm install mongoose -save
+
+```javascript
+const mongoose = require('mongoose');
+```
+
+#### What is Mongoose?
+It is a node module that contains functionality which enables us to easily communicate with a Mongo database.
+
+#### How do I connect Mongoose to a Mongo database?
+Using the `connect` function.  Simply pass in a mongo URI (including username and password parameters, so that you can access it).
+
+```javascript
+const mongoose = require('mongoose')
+
+mongoose.connect('mongodb://testuser:testpassword@localhost:27017/todo')
+```
+
+> **THINGS TO NOTE**:
 > 
+> 1. 'mongodb://' is always the prefix for Mongoose to connect to a Mongo database
+> 2. 'testuser' needs to be replaced with whatever username you set up after creating the database
+> 3. 'testpassword' needs to be replaced with whatever password you set up after creating the database
+> 4. The address that Mongoose will try to connect to needs to go after an '@' symbol.
+> 5. In development, Mongo normally works on port 27017.
+> 6. the final part (after the last forward slash) is the name of your Mongo database
+
+#### How do I create a blueprint (AKA schema) for a data model?
+#### How do I then set up that model for data to be passed to/from my database?
