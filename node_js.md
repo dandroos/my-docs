@@ -10,7 +10,7 @@
   - [Function expressions](#function-expressions)
   - [Modules and require()](#modules-and-require)
     - [How do these work?](#how-do-these-work)
-    - [What if you need to export multiple functions/variables?](#what-if-you-need-to-export-multiple-functionsvariables)
+    - [What if we need to export multiple functions/variables?](#what-if-we-need-to-export-multiple-functionsvariables)
   - [The Node Event Emitter](#the-node-event-emitter)
     - [What is it?](#what-is-it-1)
     - [How do I set up a custom event?](#how-do-i-set-up-a-custom-event)
@@ -83,8 +83,10 @@
     - [How do I get started?](#how-do-i-get-started)
     - [What is Mongoose?](#what-is-mongoose)
     - [How do I connect Mongoose to a Mongo database?](#how-do-i-connect-mongoose-to-a-mongo-database)
-    - [How do I create a blueprint (AKA schema) for a data model?](#how-do-i-create-a-blueprint-aka-schema-for-a-data-model)
-    - [How do I then set up that model for data to be passed to/from my database?](#how-do-i-then-set-up-that-model-for-data-to-be-passed-tofrom-my-database)
+    - [How do I create a model to use with my Mongo database?](#how-do-i-create-a-model-to-use-with-my-mongo-database)
+    - [How do I use Mongoose to retrieve data from the database to the front end via a GET request?](#how-do-i-use-mongoose-to-retrieve-data-from-the-database-to-the-front-end-via-a-get-request)
+    - [How do I use Mongoose to send data to the database from a form on the front end via a POST request?](#how-do-i-use-mongoose-to-send-data-to-the-database-from-a-form-on-the-front-end-via-a-post-request)
+    - [How do I use Mongoose to delete data from the database via a DELETE request?](#how-do-i-use-mongoose-to-delete-data-from-the-database-via-a-delete-request)
 
 ## Introduction
 ### What is it?
@@ -95,6 +97,8 @@ Put simply, it can **read**, **delete** and **update** files.  It can also easil
 
 ### How does it work?
 Rather confusingly, Node.js isn't written in JavaScript but in C++.  It uses Google's **V8** engine (also written in C++) to basically translate JavaScript to machine code that a computer/server can understand.
+
+[Top](#)
 
 ## The Basics
 ### The Global Object
@@ -125,6 +129,8 @@ setTimeout(()=>{
 ```
 
 A full list of ***Globals*** is available [here](https://nodejs.org/api/globals.html)
+
+[Top](#)
 
 ### Function expressions
 In regular JavaScript, a function looks like this...
@@ -159,9 +165,11 @@ var sayBye = function(){
 callFun(sayBye);
 ```
 
+[Top](#)
+
 ### Modules and require()
 #### How do these work?
-A typical Node.js app would have functionality split across various **modules** (multiple .js files).  For example, you may have a `count.js` that looks something like this...
+A typical Node.js app would have functionality split across various **modules** (multiple .js files).  For example, we may have a `count.js` that looks something like this...
 
 ```javascript
 // count.js
@@ -172,7 +180,7 @@ counter((arr)=>{
 module.exports = counter;
 ```
 
-To access this function in your `app.js` file, you would need to use the `require` function and store the return in a variable.  The return will be whatever you put in your `module.exports` in the file you are 'requiring'.
+To access this function in our `app.js` file, we would need to use the `require` function and store the return in a variable.  The return will be whatever we put in our `module.exports` in the file we are 'requiring'.
 
 ```javascript
 // app.js
@@ -190,8 +198,10 @@ var counter = require('count')
 console.log(counter(['Red', 'Orange', 'Yellow']));
 ```
 
-#### What if you need to export multiple functions/variables?
-You can use various **module patterns** to export multiple functions and/or variables.
+[Top](#)
+
+#### What if we need to export multiple functions/variables?
+we can use various **module patterns** to export multiple functions and/or variables.
 
 **Method 1** *- Export them separately at the end*
 ```javascript
@@ -257,12 +267,15 @@ console.log(maths.adder(2,3));
 console.log(maths.subtracter(5,3));
 console.log(maths.adder(maths.century,3));
 ```
+
+[Top](#)
+
 ### The Node Event Emitter
 #### What is it?
-It is functionality that allows you to configure custom events to your objects and then fire (AKA **emit**) them.
+It is functionality that allows us to configure custom events to our objects and then fire (AKA **emit**) them.
 
 #### How do I set up a custom event?
-First of all, you need to **require** the built-in **events** module.
+First of all, we need to **require** the built-in **events** module.
 
 ```javascript
 var events = require('events');
@@ -279,14 +292,16 @@ myEvent.on('pullTrigger', (noise)=>{
 ```
 
 #### How do I trigger that event?
-Once the event is set up, you can fire it off using the `emit` function.
+Once the event is set up, we can fire it off using the `emit` function.
 
 ```javascript
 myEvent.emit('pullTrigger', 'BANG!!!');
 ```
 
+[Top](#)
+
 #### Do I have to create a separate event emitter for every instance of an object?
-Nope.  You can use the **inherits** functionality in the built-in **util** module so that every time an instance of that object is created, it will inherit the EventEmitter.
+Nope.  we can use the **inherits** functionality in the built-in **util** module so that every time an instance of that object is created, it will inherit the EventEmitter.
 
 ```javascript
 var events = require('events');
@@ -310,6 +325,8 @@ people.forEach((person)=>{
 
 john.emit('getPunched', 'OWWWW!');
 ```
+
+[Top](#)
 
 ## File System (fs)
 ### What is it?
@@ -349,11 +366,13 @@ fs.readFile('my-text.txt', 'utf8', (err, data)=>{
 });
 ```
 
+[Top](#)
+
 #### How do I write files?
-Much like reading files, you can write files synchronously and asynchronously.
+Much like reading files, we can write files synchronously and asynchronously.
 
 ##### Synchronously (wait until written)
-This uses the `writeFileSync` function. The first parameter for this method is the file path you want to write to and the second parameter is the content you want to write inside that file.
+This uses the `writeFileSync` function. The first parameter for this method is the file path we want to write to and the second parameter is the content we want to write inside that file.
 
 ```javascript
 //app.js
@@ -381,11 +400,13 @@ fs.writeFile('test-write.txt', myText, (err) =>{
 });
 ```
 
+[Top](#)
+
 #### How do I delete files?
 Again, this can be performed synchronously and asynchronously.
 
 ##### Synchronously (wait until deleted)
-This uses the `unlinkSync` function. The first (and only) parameter for this method is the file path you want to delete.
+This uses the `unlinkSync` function. The first (and only) parameter for this method is the file path we want to delete.
 
 ```javascript
 //app.js
@@ -410,10 +431,12 @@ fs.unlink('my-text.txt', (err)=>{
 });
 ```
 
+[Top](#)
+
 ### Directories
 #### How do I create a directory?
 ##### Synchronously (wait until created)
-This uses the `mkdirSync` function.  It only needs the path where you want to create a directory passed into it as a parameter.
+This uses the `mkdirSync` function.  It only needs the path where we want to create a directory passed into it as a parameter.
 
 ```javascript
 //app.js
@@ -423,8 +446,10 @@ var fs = require('fs');
 fs.mkdirSync('test directory');
 ```
 
+[Top](#)
+
 ##### Asynchronously (don't wait until created)
-This uses the `mkdir` function.  It needs the path where you want to create a directory passed into it as the first parameter.  It also needs a callback function passed in as the second parameter (this only needs an error handler passed in).
+This uses the `mkdir` function.  It needs the path where we want to create a directory passed into it as the first parameter.  It also needs a callback function passed in as the second parameter (this only needs an error handler passed in).
 
 ```javascript
 //app.js
@@ -436,9 +461,11 @@ fs.mkdir('test directory', (err)=>{
 });
 ```
 
+[Top](#)
+
 #### How do I delete a directory?
 ##### Synchronously (wait until deleted)
-This uses the `rmdirSync` function.  It only needs the path of the directory you want to delete passed into it as a parameter.
+This uses the `rmdirSync` function.  It only needs the path of the directory we want to delete passed into it as a parameter.
 
 ```javascript
 //app.js
@@ -448,8 +475,10 @@ var fs = require('fs');
 fs.rmdirSync('test directory');
 ```
 
+[Top](#)
+
 ##### Asynchronously (don't wait until deleted)
-This uses the `rmdir` function.  It needs the path of the directory you want to delete passed into it as the first parameter.  It also needs a callback function passed in as the second parameter (this only needs an error handler passed in).
+This uses the `rmdir` function.  It needs the path of the directory we want to delete passed into it as the first parameter.  It also needs a callback function passed in as the second parameter (this only needs an error handler passed in).
 
 ```javascript
 //app.js
@@ -461,8 +490,10 @@ fs.rmdir('test directory', (err)=>{
 });
 ```
 
+[Top](#)
+
 #### What if the directory contains a file?
-You first need to delete the file before deleting a directory.  You can pass the `rmdir` into the callback function of the `unlink` function.
+We first need to delete the file before deleting a directory.  We can pass the `rmdir` into the callback function of the `unlink` function.
 
 ```javascript
 //app.js
@@ -477,6 +508,8 @@ fs.unlink('./test directory/my-file.txt', (err)=>{
     }
 })
 ```
+
+[Top](#)
 
 ## Clients and Servers
 ### How do clients and servers work?
@@ -502,6 +535,8 @@ const http = require('http');
 
 const server = http.createServer();
 ```
+
+[Top](#)
 
 ### How do I set it up?
 Easy!  Just know that when we use the `createServer` function, we pass in a function that takes in **request** and **response** parameters.  
@@ -554,6 +589,8 @@ server.listen(port, '127.0.0.1');
 console.log(`Listening on port ${port}`);
 ```
 
+[Top](#)
+
 ### Streams and Buffers
 #### What are the different types of stream we can use in Node?
 We can make use of **readstreams**, **writestreams** and **duplexes** (read and write combined).
@@ -571,6 +608,8 @@ myReadStream.on('data', (chunk)=>{
     console.log(chunk)
 });
 ```
+
+[Top](#)
 
 #### How do I create a writestream?
 We need to use the `createWriteStream` function from the File System (`fs`) module.  The only parameter is the path we want to write to.
@@ -599,6 +638,8 @@ var myWriteStream = fs.createWriteStream(`${__dirname}/new-dummy.txt`);
 myReadStream.pipe(myWriteStream);
 ```
 
+[Top](#)
+
 #### How can I use this with my server response?
 Well....a server response is a writestream!  So we can *pipe* data directly to the response!
 
@@ -621,9 +662,11 @@ console.log(`Listening on port ${port}`);
 
 >   NOTE: We no longer need to use the 'end' function as the pipe will automatically 'end' the response.
 
+[Top](#)
+
 ### Serving HTML and JSON
 #### How do I return an HTML file in my server response?
-Simple!  Just set the response header `'Content-Type'` to `'text/html'` and set the path to your HTML file in the readstream.
+Simple!  Just set the response header `'Content-Type'` to `'text/html'` and set the path to our HTML file in the readstream.
 
 ```javascript
 const http = require('http');
@@ -641,6 +684,8 @@ const port = 3000;
 server.listen(port, '127.0.0.1');
 console.log(`Listening on port ${port}`);
 ```
+
+[Top](#)
 
 #### How do I return JSON data in my server response?
 For this, we need to set the response header `'Content-Type'` to `'application/json'` and use the `JSON.stringify` function to turn our JSON data object into a string so that we can pass it into the `end` method.
@@ -663,6 +708,8 @@ const port = 3000;
 server.listen(port, '127.0.0.1');
 console.log(`Listening on port ${port}`);
 ```
+
+[Top](#)
 
 ### Basic routing (without Express)
 For basic routing we can use the `url` property of the `req` object.
@@ -699,6 +746,8 @@ server.listen(port, '127.0.0.1');
 console.log(`Listening on port ${port}`);
 ```
 
+[Top](#)
+
 ## Express
 ### What is it?
 Express is a Node.js module that helps us to perform efficient routing and interact with various templating engines.
@@ -719,6 +768,8 @@ const express = require('express');
 const app = express();
 ```
 
+[Top](#)
+
 We also need to make sure that Express is listening!  We use the `listen` function still, but now we don't need to pass in the second url parameter in.
 
 ```javascript
@@ -730,6 +781,8 @@ app.listen(3000);
 ```
 
 Now we have unleashed the power of Express!
+
+[Top](#)
 
 ### What are the basic routing functions in Express?
 #### GET
@@ -750,8 +803,10 @@ app.get('/contact', (req, res)=>{
 app.listen(3000);
 ```
 
+[Top](#)
+
 ##### What if I want to set up and access a URL parameter?
-Easy peasy! You can set up a route that has parameters.  We define a parameter in the route by inserting a `:` before it.  We can then access that in the request object via `params`.
+Easy peasy! We can set up a route that has parameters.  We define a parameter in the route by inserting a `:` before it.  We can then access that in the request object via `params`.
 
 ```javascript
 const express = require('express');
@@ -763,6 +818,8 @@ app.get('/profile/:id', (req, res)=>{
 
 app.listen(3000);
 ```
+
+[Top](#)
 
 ### Template (View) engine
 #### What is it?
@@ -784,8 +841,10 @@ const app = express();
 app.set('view engine', 'ejs');
 ```
 
+[Top](#)
+
 #### How do I use EJS?
-We call the render function on the response object in the route.  By default, EJS looks for templates within a folder called **views**, so create that in the same directory as your main app file *(e.g. app.js)* and make that the place you save your .ejs templates in.  When you call an EJS template in the first parameter of the render function, you don't need to type the .ejs extension.  You can also pass in dynamic content via an object (i.e. with a key and value) as the second parameter. 
+We call the render function on the response object in the route.  By default, EJS looks for templates within a folder called **views**, so create that in the same directory as our main app file *(e.g. app.js)* and make that the place we save our .ejs templates in.  When we call an EJS template in the first parameter of the render function, we don't need to type the .ejs extension.  We can also pass in dynamic content via an object (i.e. with a key and value) as the second parameter. 
 
 ```javascript
 const express = require('express');
@@ -805,6 +864,8 @@ We can now grab that content in the .ejs template by using EJS template tags.
 ```
 
 Voila!!! We can now generate dynamic pages!
+
+[Top](#)
 
 #### Can I use javascript in my EJS files?
 Oh yes!!  It's very straightforward.  We just use the same template tag for outputting data, but drop the `=`.  Let's say we have this in our **app.js**...
@@ -835,6 +896,8 @@ We can use JavaScript in our EJS view file to cycle through and output each stri
 </ul>
 ```
 
+[Top](#)
+
 #### How do I set up and use elements that I want on all/multiple pages?
 It's very simple!  Use **partial templates**.  Create a sub-directory in our **views** folder called **partials**.  In this we can use save ejs files containing elements that we want to use on multiple pages (such as a header/navbar).
 
@@ -860,9 +923,11 @@ We can insert this little snippet template in our main ejs files by using the `i
 
 > NOTE that, again, we don't need to include the .ejs file extension to the path
 
+[Top](#)
+
 ### Static files and Middleware
 #### What are static files?
-Static files are essentially assets for your website (such as stylesheets, images, audio, etc).
+Static files are essentially assets for our website (such as stylesheets, images, audio, etc).
 
 #### What is middleware?
 Middleware is functionality that handles data between the request and the response.
@@ -878,6 +943,8 @@ app.use('/assets', express.static('assets'));
 ```
 
 > NOTE the above basically says 'if we set up a link on any of our pages that contain a route starting '/assets', then we need to look for anything after the trailing slash in the folder labelled 'assets''. 
+
+[Top](#)
 
 ### Query strings
 #### How can I access query string parameters in Express?
@@ -907,6 +974,8 @@ We can now access this object in the usual manner!
 </form>
 ```
 
+[Top](#)
+
 ### Handling POST requests
 #### What do I need to handle a POST request in Express?
 We need to install middleware that knows how to parse this data.  The most common of these (and what we will use in this guide) is **body-parser**.
@@ -914,6 +983,8 @@ We need to install middleware that knows how to parse this data.  The most commo
 #### How do I install body-parser?
 
     npm install body-parser -save
+
+[Top](#)
 
 #### How do I use body-parser?
 We first need to require it in our main app.js and then to be able to parse data from an HTML form, we need to store the return of the `urlencoded` function (passing into it an object containing a boolean with a key of `extended` and a value of `false`) in a variable/constant.
@@ -947,16 +1018,19 @@ We can now use the data object in our HTML template.  For example, after a user 
 <% include partials/footer %>
 ```
 
+[Top](#)
+
 #### What about mailing that form?
 This can be achieved with the [Nodemailer](https://nodemailer.com/about/) package.  Instructions to follow....
 
 > Follow [this](https://www.youtube.com/watch?v=nF9g1825mwk) tutorial
 
+[Top](#)
 
 ### Using Mongo/Mongoose
 
 #### How do I get started?
-Refer to my docs about Mongo to create a database and a user for that database.  After you've created these, you then need to install and import `mongoose`.
+Refer to my docs about Mongo to create a database and a user (so that we can read from and write to it via Express) for that database.  After we've created these, we then need to install and import `mongoose`.
 
     npm install mongoose -save
 
@@ -964,11 +1038,13 @@ Refer to my docs about Mongo to create a database and a user for that database. 
 const mongoose = require('mongoose');
 ```
 
+[Top](#)
+
 #### What is Mongoose?
 It is a node module that contains functionality which enables us to easily communicate with a Mongo database.
 
 #### How do I connect Mongoose to a Mongo database?
-Using the `connect` function.  Simply pass in a mongo URI (including username and password parameters, so that you can access it).
+Using the `connect` function.  Simply pass in a mongo URI (including username and password parameters, so that we can access it).
 
 ```javascript
 const mongoose = require('mongoose')
@@ -979,11 +1055,118 @@ mongoose.connect('mongodb://testuser:testpassword@localhost:27017/todo')
 > **THINGS TO NOTE**:
 > 
 > 1. 'mongodb://' is always the prefix for Mongoose to connect to a Mongo database
-> 2. 'testuser' needs to be replaced with whatever username you set up after creating the database
-> 3. 'testpassword' needs to be replaced with whatever password you set up after creating the database
+> 2. 'testuser' needs to be replaced with whatever username we set up after creating the database
+> 3. 'testpassword' needs to be replaced with whatever password we set up after creating the database
 > 4. The address that Mongoose will try to connect to needs to go after an '@' symbol.
 > 5. In development, Mongo normally works on port 27017.
-> 6. the final part (after the last forward slash) is the name of your Mongo database
+> 6. the final part (after the last forward slash) is the name of our Mongo database
 
-#### How do I create a blueprint (AKA schema) for a data model?
-#### How do I then set up that model for data to be passed to/from my database?
+[Top](#)
+
+#### How do I create a model to use with my Mongo database?
+We first need to create a schema (think of it like a blueprint for how we will set out our data).  To create a schema, we need to pass in the parameters via an object to a new a Mongoose `Schema` function and assign that to a constant.
+
+```javascript
+const exampleSchema = new mongoose.Schema({
+    example_text_field : 'string'
+})
+```
+
+Now we have the blueprint, we can create the model.  We do this by declaring another function expression, but this time with the Mongoose `model` function.  Inside the model function, we give a label to our model* and we can then pass in the schema we previously created as the second parameter.
+
+```javascript
+const exampleSchema = new mongoose.Schema({
+    example_text_field : 'string'
+})
+
+const Example = mongoose.model('Example', exampleSchema);
+```
+
+> NOTE the naming convention of using capital letters for models
+
+[Top](#)
+
+#### How do I use Mongoose to retrieve data from the database to the front end via a GET request?
+Use the `find()` function on our Mongoose model.  Pass into it an object containing the keys and values we want to return and a callback function as the second parameter. Into this callback function, pass an error and the data in. Throw the error if there is one and do something with the data if there isn't.
+
+```javascript
+const exampleSchema = new mongoose.Schema({
+    example_text_field : 'string'
+})
+
+const Example = mongoose.model('Example', exampleSchema);
+
+app.get('/example-route', (req, res)=>{
+    Example.find({ exampleKey: 'example value 1'}, (err, data)={
+        if(err) throw err;
+        res.render('example-view', { examples: data })
+    })
+})
+```
+
+[Top](#)
+
+#### How do I use Mongoose to send data to the database from a form on the front end via a POST request?
+Very easily!  Use the `save` function on our Mongoose model.  Pass into the model the object of data stored in the `body` property of our request object.  The save function itself requires only one parameter, which is the callback function that we can use to refresh data on the page.
+
+```javascript
+const exampleSchema = new mongoose.Schema({
+    example_text_field : 'string'
+})
+
+const Example = mongoose.model('Example', exampleSchema);
+
+app.get('/example-route', (req, res)=>{
+    Example.find({ exampleKey: 'example value 1'}, (err, data)={
+        if(err) throw err;
+        res.render('example-view', { examples: data })
+    })
+})
+
+app.post('/example-route', urlencodedParser, (req, res)=>{
+    Example(req.body).save((err, data) =>{
+
+        if(err) throw err;
+        res.json(data);
+    })
+})
+```
+
+[Top](#)
+
+#### How do I use Mongoose to delete data from the database via a DELETE request?
+We delete data by using the `remove` function on our Mongoose model.  First, use the `find` function to locate the record we want to delete and then append on the `remove` method.
+
+```javascript
+const exampleSchema = new mongoose.Schema({
+    example_text_field : 'string'
+})
+
+const Example = mongoose.model('Example', exampleSchema);
+
+app.get('/example-route', (req, res)=>{
+    // NOTE: if we want to retrieve all results, we pass an empty object into it
+    Example.find({ exampleKey: 'example value 1'}, (err, data)={
+        if(err) throw err;
+        res.render('example-view', { examples: data })
+    })
+})
+
+app.post('/example-route', urlencodedParser, (req, res)=>{
+    Example(req.body).save((err, data) =>{
+
+        if(err) throw err;
+        res.json(data);
+    })
+})
+
+//NOTE: This assumes there are no whitespaces in our data. Use a regex replace if there are.
+app.delete('/example-route/:example-param', (req, res)=>{
+    Example.find({ exampleKey: req.params.example-param }).remove((err,data)=>{
+        if(err) throw err;
+        res.json(data);
+    })
+})
+```
+
+[Top](#)
